@@ -145,77 +145,10 @@ df_top_stores= task1_df.groupby(by=['Store'], as_index= False)['Weekly_Sales'].s
 
 df_top_stores
 
-"""##Task2 -- Model the effects of markdowns on holiday weeks"""
-
-task2_df = final_data.copy()
-
-task2_df.info()
-
-task2_df.columns
-
-task2_df['Date'].head(5)
-
-task2_df['Date'].tail(5)
-
-task2_df['Date'].unique()
-
-sns.barplot(x='IsHoliday', y='Weekly_Sales', data=task2_df)
-
-Visualizing the holiday effects over sales
-
-holiday = task2_df[task2_df['IsHoliday']==True]
-non_holiday = task2_df[task2_df['IsHoliday']!=True]
-
-print(len(holiday))
-
-print(len(non_holiday))
-
-sns.boxplot(x = holiday
-            )
-
-sns.barplot(x='Christmas', y='Weekly_Sales', data=task2_df)
-
-# Super bowl dates
-task2_df.loc[(task2_df['Date'] == '2010-02-12')|(task2_df['Date'] == '2011-02-11')|(task2_df['Date'] == '2012-02-10'),'Super_Bowl'] = True
-task2_df.loc[(task2_df['Date'] != '2010-02-12')&(task2_df['Date'] != '2011-02-11')&(task2_df['Date'] != '2012-02-10'),'Super_Bowl'] = False
-
-# Labor day dates
-task2_df.loc[(task2_df['Date'] == '2010-09-10')|(task2_df['Date'] == '2011-09-09')|(task2_df['Date'] == '2012-09-07'),'Labor_Day'] = True
-task2_df.loc[(task2_df['Date'] != '2010-09-10')&(task2_df['Date'] != '2011-09-09')&(task2_df['Date'] != '2012-09-07'),'Labor_Day'] = False
-
-# Thanksgiving dates
-task2_df.loc[(task2_df['Date'] == '2010-11-26')|(task2_df['Date'] == '2011-11-25'),'Thanksgiving'] = True
-task2_df.loc[(task2_df['Date'] != '2010-11-26')&(task2_df['Date'] != '2011-11-25'),'Thanksgiving'] = False
-
-#Christmas dates in train set
-task2_df.loc[(task2_df['Date'] == '2010-12-31')|(task2_df['Date'] == '2011-12-30'),'Christmas'] = True
-task2_df.loc[(task2_df['Date'] != '2010-12-31')&(task2_df['Date'] != '2011-12-30'),'Christmas'] = False
 
 
 
-Christmas1 = pd.Timestamp(2010,12,25)
-Christmas2 = pd.Timestamp(2011,12,25)
-Christmas3 = pd.Timestamp(2012,12,25)
-
-Thanksgiving1=pd.Timestamp(2010,11,23)
-Thanksgiving2=pd.Timestamp(2011,11,23)
-Thanksgiving3=pd.Timestamp(2012,11,23)
 
 
 
-sns.barplot(x='Christmas', y='Weekly_Sales', data=task2_df)
 
-sns.barplot(x='Thanksgiving', y='Weekly_Sales', data=task2_df)
-
-labels = 'Not-Affected' , 'Affected'
-sizes = task2_df.IsHoliday.value_counts()
-colors = ['gold', 'silver']
-explode = (0.1, 0.0)
-plt.pie(sizes, explode=explode, labels=labels, colors=colors,
-        autopct='%1.1f%%', shadow=True, startangle=180)
-plt.axis('equal')
-plt.title("Sales Affected by Schoolholiday or Not ?",fontsize=20)
-plt.plot()
-fig=plt.gcf()
-fig.set_size_inches(6,6)
-plt.show()
